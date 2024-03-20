@@ -1,11 +1,11 @@
 import express, { json } from "express";
 import passport from "passport";
-import sessionConfig from "./session-config.js";
-import initializePassport from "./passport-config.js";
+import sessionConfig from "./session-config.mjs";
+import initializePassport from "./passport-config.mjs";
 
-import userRoutes from "./routes/users.js";
-import accountRoutes from "./routes/accounts.js";
-import transactionRoutes from "./routes/transactions.js";
+import userRoutes from "./routes/users.mjs";
+import accountRoutes from "./routes/accounts.mjs";
+import transactionRoutes from "./routes/transactions.mjs";
 
 initializePassport();
 

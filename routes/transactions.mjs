@@ -3,8 +3,8 @@ import {
   createTransaction,
   getTransactions,
   getTransactionById,
-} from "../controllers/transactions.js";
-import { ensureAuthenticated } from "../middleware/auth.js";
+} from "../controllers/transactions.mjs";
+import { ensureAuthenticated } from "../middleware/auth.mjs";
 
 const router = express.Router();
 

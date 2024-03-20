@@ -1,4 +1,4 @@
-import db from "../db.js";
+import db from "../db.mjs";
 
 export const createTransaction = async (userId, accountId, amount, type) => {
   const connection = await db.getConnection();

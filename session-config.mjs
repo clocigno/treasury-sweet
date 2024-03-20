@@ -4,7 +4,7 @@ if (process.env.NODE_ENV !== "production") {
 
 import session from "express-session";
 import MySQLStore from "express-mysql-session";
-import db from "./db.js";
+import db from "./db.mjs";
 
 const sessionStore = MySQLStore(session);
 

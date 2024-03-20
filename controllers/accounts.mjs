@@ -1,4 +1,4 @@
-import db from "../db.js";
+import db from "../db.mjs";
 
 export const createAccount = async (userId, accountType, balance) => {
   try {

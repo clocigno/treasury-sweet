@@ -1,7 +1,7 @@
 import passport from "passport";
 import express from "express";
-import { createUser, updateUser } from "../controllers/users.js";
-import { ensureAuthenticated } from "../middleware/auth.js";
+import { createUser, updateUser } from "../controllers/users.mjs";
+import { ensureAuthenticated } from "../middleware/auth.mjs";
 
 const router = express.Router();
 

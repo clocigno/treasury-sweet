@@ -1,4 +1,4 @@
-import db from "../db.js";
+import db from "../db.mjs";
 import bcrypt from "bcryptjs";
 
 export const getUserByUsername = async (username) => {

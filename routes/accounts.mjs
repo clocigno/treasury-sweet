@@ -7,8 +7,8 @@ import {
   updateAccountType,
   deleteAccount,
   getTransactionsByAccountId,
-} from "../controllers/accounts.js";
-import { ensureAuthenticated } from "../middleware/auth.js";
+} from "../controllers/accounts.mjs";
+import { ensureAuthenticated } from "../middleware/auth.mjs";
 
 const router = express.Router();
 

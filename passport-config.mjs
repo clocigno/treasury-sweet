@@ -1,6 +1,6 @@
 import { Strategy as LocalStrategy } from "passport-local";
 import passport from "passport";
-import { getUserByUsername, getUserById } from "./controllers/users.js";
+import { getUserByUsername, getUserById } from "./controllers/users.mjs";
 import bcrypt from "bcryptjs";
 
 export default async function initialize() {
