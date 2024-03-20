@@ -6,7 +6,7 @@
   "main": "server.js",
   "scripts": {
     "dev": "nodemon server.js",
-    "build": "npm run build"
+    "build": "echo 'No build step required for this project'"
   },
   "author": "Carl Locigno",
   "license": "ISC",

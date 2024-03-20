@@ -18,7 +18,7 @@ The application provides a RESTful API with the following endpoints:
 - `POST /create`: Create a new financial account (Authenticated users only).
 - `GET /`: List all accounts for the currently logged-in user.
 - `GET /:accountId`: Get details of a specific account (Authenticated user and account owner only).
-- `PUT /:accountId`: Update a specific account (Authenticated user and account owner only).
+- `PATCH /:accountId`: Update a specific account (Authenticated user and account owner only).
 - `DELETE /:accountId`: Delete a specific account (Authenticated user and account owner only).
 - `GET /:accountId/transactions`: Retrieve transactions for a specific account (Authenticated user and account owner only).
 
