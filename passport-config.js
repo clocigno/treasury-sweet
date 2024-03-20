@@ -1,9 +1,9 @@
-import { Strategy as LocalStrategy } from "passport-local";
-import passport from "passport";
-import { getUserByUsername, getUserById } from "./controllers/users.mjs";
-import bcrypt from "bcryptjs";
+const LocalStrategy = require("passport-local").Strategy;
+const passport = require("passport");
+const { getUserByUsername, getUserById } = require("./controllers/users.js");
+const bcrypt = require("bcryptjs");
 
-export default async function initialize() {
+async function initialize() {
   const authenticateUser = async (username, password, done) => {
     const user = await getUserByUsername(username);
     if (user == null) {
@@ -29,3 +29,5 @@ export default async function initialize() {
     return done(null, await getUserById(id));
   });
 }
+
+module.exports = initialize;

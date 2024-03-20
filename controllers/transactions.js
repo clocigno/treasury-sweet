@@ -1,6 +1,6 @@
-import db from "../db.mjs";
+const db = require("../db.js");
 
-export const createTransaction = async (userId, accountId, amount, type) => {
+const createTransaction = async (userId, accountId, amount, type) => {
   const connection = await db.getConnection();
   try {
     await connection.beginTransaction();
@@ -32,7 +32,7 @@ export const createTransaction = async (userId, accountId, amount, type) => {
   }
 };
 
-export const getTransactions = async (userId) => {
+const getTransactions = async (userId) => {
   try {
     const query = "SELECT * FROM transactions WHERE user_id = ?";
     const [rows] = await db.query(query, [userId]);
@@ -43,7 +43,7 @@ export const getTransactions = async (userId) => {
   }
 };
 
-export const getTransactionById = async (transactionId, userId) => {
+const getTransactionById = async (transactionId, userId) => {
   try {
     const query = "SELECT * FROM transactions WHERE id = ? AND user_id = ?";
     const [rows] = await db.query(query, [transactionId, userId]);
@@ -52,4 +52,10 @@ export const getTransactionById = async (transactionId, userId) => {
     console.error("Error getting transaction by id:", error);
     throw error;
   }
+};
+
+module.exports = {
+  createTransaction,
+  getTransactions,
+  getTransactionById,
 };

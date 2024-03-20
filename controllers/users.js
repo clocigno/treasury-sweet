@@ -1,7 +1,7 @@
-import db from "../db.mjs";
-import bcrypt from "bcryptjs";
+const db = require("../db");
+const bcrypt = require("bcryptjs");
 
-export const getUserByUsername = async (username) => {
+const getUserByUsername = async (username) => {
   const query = "SELECT * FROM users WHERE username = ?";
   try {
     const [rows] = await db.query(query, [username]);
@@ -12,7 +12,7 @@ export const getUserByUsername = async (username) => {
   }
 };
 
-export const getUserById = async (id) => {
+const getUserById = async (id) => {
   const query = "SELECT * FROM users WHERE id = ?";
   try {
     const [rows] = await db.query(query, [id]);
@@ -23,7 +23,7 @@ export const getUserById = async (id) => {
   }
 };
 
-export const createUser = async (username, email, password) => {
+const createUser = async (username, email, password) => {
   try {
     const query =
       "INSERT INTO users (username, email, password) VALUES (?, ?, ?)";
@@ -35,7 +35,7 @@ export const createUser = async (username, email, password) => {
   }
 };
 
-export const updateUser = async (id, username, email, password) => {
+const updateUser = async (id, username, email, password) => {
   try {
     const query =
       "UPDATE users SET username = ?, email = ?, password = ? WHERE id = ?";
@@ -45,4 +45,11 @@ export const updateUser = async (id, username, email, password) => {
     console.error("Error updating user:", error);
     throw error;
   }
+};
+
+module.exports = {
+  getUserByUsername,
+  getUserById,
+  createUser,
+  updateUser,
 };

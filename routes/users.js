@@ -1,17 +1,17 @@
-import passport from "passport";
-import express from "express";
-import { createUser, updateUser } from "../controllers/users.mjs";
-import { ensureAuthenticated } from "../middleware/auth.mjs";
+const passport = require("passport");
+const express = require("express");
+const { createUser, updateUser } = require("../controllers/users.js");
+const ensureAuthenticated = require("../middleware/auth.js");
 
 const router = express.Router();
 
 router.post("/register", async (req, res) => {
   try {
     const { username, email, password } = req.body;
-    createUser(username, email, password);
-    res.status(201).json({ message: "User registered successfully" });
+    await createUser(username, email, password);
+    return res.status(201).json({ message: "User registered successfully" });
   } catch (error) {
-    res.status(500).json({ message: "Error registering user" });
+    return res.status(500).json({ message: "Error registering user" });
   }
 });
 
@@ -37,18 +37,18 @@ router.post("/logout", (req, res) => {
     if (err) {
       return res.status(500).json({ message: "Error logging out" });
     }
-    res.status(200).json({ message: "You have been logged out" });
+    return res.status(200).json({ message: "You have been logged out" });
   });
 });
 
 router.put("/update", ensureAuthenticated, async (req, res) => {
   try {
     const { username, email, password } = req.body;
-    updateUser(req.user.id, username, email, password);
-    res.status(200).json({ message: "User updated successfully" });
+    await updateUser(req.user.id, username, email, password);
+    return res.status(200).json({ message: "User updated successfully" });
   } catch (error) {
-    res.status(500).json({ message: "Error updating user" });
+    return res.status(500).json({ message: "Error updating user" });
   }
 });
 
-export default router;
+module.exports = router;

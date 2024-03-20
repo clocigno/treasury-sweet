@@ -1,10 +1,11 @@
-import express from "express";
-import {
+const express = require("express");
+const ensureAuthenticated = require("../middleware/auth.js");
+
+const {
   createTransaction,
   getTransactions,
   getTransactionById,
-} from "../controllers/transactions.mjs";
-import { ensureAuthenticated } from "../middleware/auth.mjs";
+} = require("../controllers/transactions.js");
 
 const router = express.Router();
 
@@ -44,4 +45,4 @@ router.get("/:id", ensureAuthenticated, async (req, res) => {
   }
 });
 
-export default router;
+module.exports = router;

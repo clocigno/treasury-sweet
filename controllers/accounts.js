@@ -1,6 +1,6 @@
-import db from "../db.mjs";
+const db = require("../db.js");
 
-export const createAccount = async (userId, accountType, balance) => {
+const createAccount = async (userId, accountType, balance) => {
   try {
     const query =
       "INSERT INTO accounts (user_id, account_type, balance) VALUES (?, ?, ?)";
@@ -11,7 +11,7 @@ export const createAccount = async (userId, accountType, balance) => {
   }
 };
 
-export const getAccounts = async (userId) => {
+const getAccounts = async (userId) => {
   try {
     const query = "SELECT * FROM accounts WHERE user_id = ?";
     const [rows] = await db.query(query, [userId]);
@@ -22,7 +22,7 @@ export const getAccounts = async (userId) => {
   }
 };
 
-export const getAccountById = async (accountId, userId) => {
+const getAccountById = async (accountId, userId) => {
   try {
     const query = "SELECT * FROM accounts WHERE id = ? AND user_id = ?";
     const [rows] = await db.query(query, [accountId, userId]);
@@ -33,7 +33,7 @@ export const getAccountById = async (accountId, userId) => {
   }
 };
 
-export const updateAccountType = async (accountId, userId, newAccountType) => {
+const updateAccountType = async (accountId, userId, newAccountType) => {
   try {
     const query =
       "UPDATE accounts SET account_type = ? WHERE id = ? AND user_id = ?";
@@ -47,7 +47,7 @@ export const updateAccountType = async (accountId, userId, newAccountType) => {
   }
 };
 
-export const updateAccountBalance = async (accountId, userId, newBalance) => {
+const updateAccountBalance = async (accountId, userId, newBalance) => {
   try {
     const query =
       "UPDATE accounts SET balance = ? WHERE id = ? AND user_id = ?";
@@ -61,7 +61,7 @@ export const updateAccountBalance = async (accountId, userId, newBalance) => {
   }
 };
 
-export const deleteAccount = async (accountId, userId) => {
+const deleteAccount = async (accountId, userId) => {
   const connection = await db.getConnection();
   try {
     await connection.beginTransaction();
@@ -87,7 +87,7 @@ export const deleteAccount = async (accountId, userId) => {
   }
 };
 
-export const getTransactionsByAccountId = async (userId, accountId) => {
+const getTransactionsByAccountId = async (userId, accountId) => {
   try {
     const query = `
       SELECT t.* 
@@ -108,4 +108,14 @@ export const getTransactionsByAccountId = async (userId, accountId) => {
     console.error("Error in getting transactions by account_id:", error);
     throw error; // Or handle the error as appropriate
   }
+};
+
+module.exports = {
+  createAccount,
+  getAccounts,
+  getAccountById,
+  updateAccountType,
+  updateAccountBalance,
+  deleteAccount,
+  getTransactionsByAccountId,
 };

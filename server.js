@@ -1,11 +1,12 @@
-import express, { json } from "express";
-import passport from "passport";
-import sessionConfig from "./session-config.mjs";
-import initializePassport from "./passport-config.mjs";
+const express = require("express");
+const { json } = require("express");
+const passport = require("passport");
+const sessionConfig = require("./session-config.js");
+const initializePassport = require("./passport-config.js");
 
-import userRoutes from "./routes/users.mjs";
-import accountRoutes from "./routes/accounts.mjs";
-import transactionRoutes from "./routes/transactions.mjs";
+const userRoutes = require("./routes/users.js");
+const accountRoutes = require("./routes/accounts.js");
+const transactionRoutes = require("./routes/transactions.js");
 
 initializePassport();
 
@@ -20,7 +21,7 @@ app.use("/users", userRoutes);
 app.use("/accounts", accountRoutes);
 app.use("/transactions", transactionRoutes);
 
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 3000;
 
 app.listen(port, (err, res) => {
   if (err) {
