@@ -34,7 +34,12 @@ const createTransaction = async (userId, accountId, amount, type) => {
 
 const getTransactions = async (userId) => {
   try {
-    const query = "SELECT * FROM transactions WHERE user_id = ?";
+    const query = `
+      SELECT t.* 
+      FROM transactions t
+      INNER JOIN accounts a ON t.account_id = a.id
+      WHERE a.user_id = ?
+    `;
     const [rows] = await db.query(query, [userId]);
     return rows;
   } catch (error) {
@@ -45,7 +50,12 @@ const getTransactions = async (userId) => {
 
 const getTransactionById = async (transactionId, userId) => {
   try {
-    const query = "SELECT * FROM transactions WHERE id = ? AND user_id = ?";
+    const query = `
+      SELECT t.* 
+      FROM transactions t
+      INNER JOIN accounts a ON t.account_id = a.id
+      WHERE t.id = ? AND a.user_id = ?
+    `;
     const [rows] = await db.query(query, [transactionId, userId]);
     return rows[0];
   } catch (error) {
