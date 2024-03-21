@@ -40,7 +40,15 @@ const updateUser = async (id, username, email, password) => {
     const query =
       "UPDATE users SET username = ?, email = ?, password = ? WHERE id = ?";
     const hashedPassword = await bcrypt.hash(password, 10);
-    await db.query(query, [username, email, hashedPassword, id]);
+    const [result] = await db.query(query, [
+      username,
+      email,
+      hashedPassword,
+      id,
+    ]);
+    if (result.affectedRows === 0) {
+      throw new Error("User not found or access denied.");
+    }
   } catch (error) {
     console.error("Error updating user:", error);
     throw error;

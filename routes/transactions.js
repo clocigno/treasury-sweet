@@ -40,7 +40,9 @@ router.get("/:id", ensureAuthenticated, async (req, res) => {
     if (transaction) {
       return res.status(200).json(transaction);
     } else {
-      return res.status(404).json({ message: "Transaction not found" });
+      return res
+        .status(404)
+        .json({ message: "Transaction not found or access denied" });
     }
   } catch (error) {
     return res.status(500).json({ message: "Error getting transaction by id" });

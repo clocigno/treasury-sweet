@@ -40,7 +40,9 @@ router.get("/:id", ensureAuthenticated, async (req, res) => {
     const accountId = req.params.id;
     const account = await getAccountById(accountId, userId);
     if (!account) {
-      return res.status(404).json({ message: "Account not found" });
+      return res
+        .status(404)
+        .json({ message: "Account not found or access denied" });
     }
     return res.status(200).json(account);
   } catch (error) {
@@ -61,7 +63,7 @@ router.patch("/:id", ensureAuthenticated, async (req, res) => {
     }
     return res.status(200).json({ message: "Account updated successfully" });
   } catch (error) {
-    if (error.message === "Account not found") {
+    if (error.message === "Account not found or access denied.") {
       return res.status(404).json({ message: error.message });
     }
     res.status(500).json({ message: "Error updating account" });
@@ -75,7 +77,7 @@ router.delete("/:id", ensureAuthenticated, async (req, res) => {
     await deleteAccount(accountId, userId);
     return res.status(200).json({ message: "Account deleted successfully" });
   } catch (error) {
-    if (error.message === "Account not found") {
+    if (error.message === "Account not found or access denied.") {
       return res.status(404).json({ message: error.message });
     } else {
       return res.status(500).json({ message: "Error deleting account" });

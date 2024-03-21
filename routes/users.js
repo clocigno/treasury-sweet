@@ -47,6 +47,9 @@ router.put("/update", ensureAuthenticated, async (req, res) => {
     await updateUser(req.user.id, username, email, password);
     return res.status(200).json({ message: "User updated successfully" });
   } catch (error) {
+    if (error.message === "User not found or access denied.") {
+      return res.status(404).json({ message: error.message });
+    }
     return res.status(500).json({ message: "Error updating user" });
   }
 });

@@ -39,7 +39,7 @@ const updateAccountType = async (accountId, userId, newAccountType) => {
       "UPDATE accounts SET account_type = ? WHERE id = ? AND user_id = ?";
     const [result] = await db.query(query, [newAccountType, accountId, userId]);
     if (result.affectedRows === 0) {
-      throw new Error("Account not found");
+      throw new Error("Account not found or access denied.");
     }
   } catch (error) {
     console.error("Error updating account type:", error);
@@ -53,7 +53,7 @@ const updateAccountBalance = async (accountId, userId, newBalance) => {
       "UPDATE accounts SET balance = ? WHERE id = ? AND user_id = ?";
     const [result] = await db.query(query, [newBalance, accountId, userId]);
     if (result.affectedRows === 0) {
-      throw new Error("Account not found");
+      throw new Error("Account not found or access denied.");
     }
   } catch (error) {
     console.error("Error updating account balance:", error);
@@ -70,7 +70,7 @@ const deleteAccount = async (accountId, userId) => {
     const [result] = await connection.query(query, [accountId, userId]);
 
     if (result.affectedRows === 0) {
-      throw new Error("Account not found or access denied");
+      throw new Error("Account not found or access denied.");
     }
 
     const deleteTransactionsQuery =
@@ -95,18 +95,12 @@ const getTransactionsByAccountId = async (userId, accountId) => {
       JOIN accounts a ON t.account_id = a.id
       WHERE a.id = ? AND a.user_id = ?
     `;
+
     const [transactions] = await db.query(query, [accountId, userId]);
-
-    if (transactions.length === 0) {
-      throw new Error(
-        "No transactions found for this account or access denied"
-      );
-    }
-
     return transactions;
   } catch (error) {
     console.error("Error in getting transactions by account_id:", error);
-    throw error; // Or handle the error as appropriate
+    throw error;
   }
 };
 
