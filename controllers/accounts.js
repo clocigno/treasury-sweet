@@ -66,16 +66,24 @@ const deleteAccount = async (accountId, userId) => {
   try {
     await connection.beginTransaction();
 
-    const query = "DELETE FROM accounts WHERE id = ? AND user_id = ?";
-    const [result] = await connection.query(query, [accountId, userId]);
+    const checkAccountQuery =
+      "SELECT * FROM accounts WHERE id = ? AND user_id = ?";
+    const [accountResult] = await connection.query(checkAccountQuery, [
+      accountId,
+      userId,
+    ]);
 
-    if (result.affectedRows === 0) {
+    if (accountResult.length === 0) {
       throw new Error("Account not found or access denied.");
     }
 
     const deleteTransactionsQuery =
       "DELETE FROM transactions WHERE account_id = ?";
     await connection.query(deleteTransactionsQuery, [accountId]);
+
+    const deleteAccountQuery =
+      "DELETE FROM accounts WHERE id = ? AND user_id = ?";
+    await connection.query(deleteAccountQuery, [accountId, userId]);
 
     await connection.commit();
   } catch (error) {
